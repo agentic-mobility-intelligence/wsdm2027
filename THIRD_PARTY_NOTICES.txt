@@ -1,0 +1,40 @@
+AMI'27 first-draft website
+
+The supplied Learning with Knowledge Graphs WSDM2023 website provided the
+five-page workshop structure and Bootstrap-based responsive foundation.
+Original template footer attribution: DEEP Lab, 2023.
+
+Bootstrap v3.3.5
+Copyright (c) 2011-2015 Twitter, Inc.
+Original license notice is preserved in assets/css/bootstrap.min.css.
+
+The MIT License (MIT)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+WSDM 2027 conference logo
+Official conference website: https://www.wsdm-conference.org/2027/
+Original asset: https://www.wsdm-conference.org/2027/images/logo.png
+Local copy: assets/img/wsdm-2027-logo.png
+Retrieved on 18 October 2026. The original PNG is preserved without changes.
+Display derivative: assets/img/wsdm-2027-logo-transparent.png
+Background removed with the built-in image editing tool on 18 October 2026.
+The edit prompt and output details are recorded in LOGO_EDIT.md.
+The logo links to the official conference website. It is separate from the
+Bootstrap code and its MIT license reproduced above.
