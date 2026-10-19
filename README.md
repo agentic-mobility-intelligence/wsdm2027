@@ -32,6 +32,7 @@
 - [7. 图片与 Logo 的维护](#section-7)
   - [7.1 正在使用的素材](#section-7-1)
   - [7.2 可选：重新生成照片与图示的 WebP](#section-7-2)
+  - [7.3 浏览器标签图标（favicon）](#section-7-3)
 - [8. 交互与修改后检查](#section-8)
 - [9. 部署到静态托管服务](#section-9)
   - [9.1 发布文件与维护源码](#section-9-1)
@@ -377,7 +378,7 @@ bootstrap.min.css → site.css → proposal.css → refinements.css → images.c
 | Agentic 图示预览 | `agentic-mobility.webp` | 放大查看使用同名 `.png` |
 | Traditional 图示预览 | `traditional-mobility.webp` | 放大查看使用同名 `.png` |
 | 六位组织者照片 | 对应姓名的 `.webp` 文件 | JPG / JPEG 等原文件保留在同一目录 |
-| 浏览器标签图标 | `favicon.svg` | 独立于页眉 Logo，不会随页眉图片自动更新 |
+| 浏览器标签图标 | `favicon-16.png`、`favicon-32.png`、`apple-touch-icon.png`、根目录 `favicon.ico` | 从 `ami27-logo-transparent.png` 左侧图形裁切生成，见 7.3 |
 
 以上文件均位于 `assets/img/`。替换图片时保持路径一致；如果改了文件名，要同步修改模板或 `organizers` 数据。替换为不同宽高比的图片时，也应检查 HTML 中的 `width`、`height` 属性。
 
@@ -401,6 +402,25 @@ python scripts/prepare_images.py
 脚本处理固定列表中的两张图示和六位组织者原图，保留原图并覆盖同名 `.webp`：图示最长边上限 1600px，照片最长边上限 900px，WebP quality 为 88。新增图片不会被自动发现，需维护脚本中的文件列表。
 
 该脚本会把输入转换为 RGB，**不用于透明 Logo**；现有列表也不包含 Logo。若某张原图缺失，脚本会报错，应先检查文件名和扩展名。
+
+<a id="section-7-3"></a>
+
+### 7.3 浏览器标签图标（favicon）
+
+标签图标使用 `ami27-logo-transparent.png` 左侧的图形标记，而不是整条横向 Logo：完整 Logo 宽高比约 3:1，缩到 16–32 px 后文字无法辨认。`scripts/make_favicons.py` 会把左侧图形裁成正方形并生成：
+
+- `assets/img/favicon-16.png`、`assets/img/favicon-32.png`：浏览器标签页
+- `assets/img/apple-touch-icon.png`：iOS 主屏幕图标（180×180，品牌深蓝底）
+- `favicon.ico`：放在根目录，包含 16/32/48 px，兼容旧浏览器
+
+重新生成：
+
+```powershell
+python -m pip install Pillow
+python scripts/make_favicons.py
+```
+
+对应 `<link>` 标签由 `scripts/build.mjs` 的页面模板统一输出，修改后需重新运行 `node scripts/build.mjs`。如果更换了 Logo 原图，需同步调整脚本中的 `EMBLEM_BOX` 裁切范围（当前基于 2172×724 原图）。浏览器会缓存 favicon，更新后可能需要强制刷新或用无痕窗口才能看到新图标。
 
 <a id="section-8"></a>
 
