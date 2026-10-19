@@ -44,8 +44,9 @@ assets/css/images.css：About 图文布局、照片裁切和图片放大窗口�
 6. 透明 Logo 使用文件名带 -transparent 的 PNG；不要加白底或亮度滤镜。
 
 六、部署与完整说明
-线上仓库：https://github.com/WeigangLu/AMI27
-网站地址：https://weiganglu.github.io/AMI27/
+线上仓库：https://github.com/agentic-mobility-intelligence/wsdm2027
+网站地址：https://agentic-mobility-intelligence.github.io/wsdm2027/
+组织为系列品牌，仓库名对应届次；未来新一届在同一组织下新建仓库即可。
 发布源为 main 分支根目录；修改源码后先运行 node scripts/build.mjs，
 再提交并推送，GitHub Pages 会自动更新。
 发布生成后的五个 HTML、assets 文件夹及第三方说明，保持目录结构。

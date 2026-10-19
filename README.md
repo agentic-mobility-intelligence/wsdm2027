@@ -468,8 +468,10 @@ GitHub Pages 的分支发布不会自动执行本项目的 `node scripts/build.m
 
 当前线上地址：
 
-- 仓库：[github.com/WeigangLu/AMI27](https://github.com/WeigangLu/AMI27)
-- 网站：[weiganglu.github.io/AMI27](https://weiganglu.github.io/AMI27/)
+- 仓库：[github.com/agentic-mobility-intelligence/wsdm2027](https://github.com/agentic-mobility-intelligence/wsdm2027)
+- 网站：[agentic-mobility-intelligence.github.io/wsdm2027](https://agentic-mobility-intelligence.github.io/wsdm2027/)
+
+组织 `agentic-mobility-intelligence` 代表系列品牌，仓库名代表届次。以后举办新一届时，在同一组织下新建对应仓库（如 `wsdm2028`）即可，各届网站互不影响。
 
 发布源已设为 `main` 分支根目录（`/`）。更新流程为：修改 `scripts/` 中的源文件 → 本地运行 `node scripts/build.mjs` → 提交生成的 HTML 与资源 → `git push`。推送后 GitHub Pages 会自动重新发布，无需手动上传文件。
 
