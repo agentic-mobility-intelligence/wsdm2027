@@ -466,6 +466,13 @@ GitHub Pages 的分支发布不会自动执行本项目的 `node scripts/build.m
 
 当前源码未提供自定义部署工作流或域名配置。本地 `127.0.0.1` 预览地址与线上站点是两个环境；本地修改不会自动同步到已经发布的网站。
 
+当前线上地址：
+
+- 仓库：[github.com/WeigangLu/AMI27](https://github.com/WeigangLu/AMI27)
+- 网站：[weiganglu.github.io/AMI27](https://weiganglu.github.io/AMI27/)
+
+发布源已设为 `main` 分支根目录（`/`）。更新流程为：修改 `scripts/` 中的源文件 → 本地运行 `node scripts/build.mjs` → 提交生成的 HTML 与资源 → `git push`。推送后 GitHub Pages 会自动重新发布，无需手动上传文件。
+
 <a id="section-10"></a>
 
 ## 10. 常见问题
