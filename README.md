@@ -303,9 +303,23 @@ submissionUrl: '',
 
 ### 5.4 嘉宾信息
 
-目前没有已确认的 invited speakers 和 panelists。首页及 Program 的公共提示由 `workshop.speakerAnnouncement` 管理；Speakers 页的占位内容单独写在 `build.mjs` 的 `speakers()` 中。
+已根据组织者提供的信息加入香港科技大学（广州）的 **Prof. Lei Chen**。职务、个人主页及照片来自教授的官方个人主页；报告方向来自邀请函，尚不是正式摘要。报告题目及摘要仍待公布。初步安排为开场之后、Session 01 之前；13:40–14:00 HKT、20 分钟含问答均保留为暂定安排。其他 invited speakers 和 panelists 待公布。
 
-取得确认信息后，需要在 `speakers()` 中加入嘉宾姓名、单位、照片、演讲题目和摘要，并同步更新首页提示和 `schedule` 中对应的演讲条目。仅修改 `speakerAnnouncement` 不会自动生成嘉宾卡片。
+嘉宾数据集中在 `scripts/content.mjs` 的 `invitedSpeaker`：
+
+| 字段 | 用途 |
+| --- | --- |
+| `name`、`honorific`、`institution`、`role` | 姓名、称谓、学校和职务 |
+| `image` | `assets/img/` 下的照片文件名 |
+| `homepage`、`biography` | 官方个人主页和简短介绍 |
+| `talkTitle` | 当前为 `Title to be announced`，确认后填写正式题目 |
+| `focus` | 当前标为 Planned focus 的预计内容，不代表嘉宾已确认的摘要 |
+| `timing` | 开始、结束时间、时长和与 Session 01 的先后关系 |
+
+页面布局在 `scripts/build.mjs` 的 `speakers()`，样式在 `assets/css/refinements.css`。`timing.start` / `timing.end` 同时供 Program 的第一场邀请报告使用；姓名也从同一对象读取。首页提示由 `workshop.speakerAnnouncement` 管理；Panel 的待公布提示单独位于 `program()`。
+
+取得正式题目和摘要后，应更新 `talkTitle`、`focus`，并在 `speakers()` 中把 Planned focus 改为 Abstract、删除题目和摘要待公布提示；在 `schedule` 中更新相应说明。最终时段确认后，再移除 Speakers 的 Tentative 标签并核对 Program。增加其他嘉宾时，需要扩展模板或改为嘉宾数组，不能只修改首页提示。
+
 
 <a id="section-5-5"></a>
 
