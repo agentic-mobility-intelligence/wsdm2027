@@ -55,7 +55,28 @@ export const workshop = {
   ],
   audience: 'We welcome researchers and practitioners in data mining, recommendation, user modeling, agentic and multi-agent systems, and mobility applications.',
   participation: 'The proposed half-day, in-person workshop combines invited talks, contributed talks, posters, and a panel.',
-  speakerAnnouncement: 'Invited speakers and panelists will be announced soon.',
+  speakerAnnouncement: 'Prof. Lei Chen (HKUST(GZ)) will give an invited talk. Additional speakers and panelists will be announced.',
+};
+
+// Speaker confirmed by the organizers. The title, abstract, and exact slot are pending.
+// Profile and portrait: https://personal.hkust-gz.edu.cn/Chenlei/
+// Planned focus and timing follow the supplied invitation, not a final talk abstract.
+export const invitedSpeaker = {
+  name: 'Lei Chen',
+  honorific: 'Prof.',
+  institution: 'The Hong Kong University of Science and Technology (Guangzhou)',
+  role: 'Chair Professor · Dean of Information Hub',
+  image: 'lei-chen.webp',
+  homepage: 'https://personal.hkust-gz.edu.cn/Chenlei/',
+  biography: 'Prof. Chen works on data management and database systems, including data-driven AI and spatiotemporal data. His expertise connects mobility data analysis with the workshop’s questions about effective real-world decisions.',
+  talkTitle: 'Title to be announced',
+  focus: 'The talk is expected to explore how data mining and spatiotemporal intelligence can support reliable, adaptive decisions in dynamic mobility environments. Topics may include decision-making with incomplete information, evolving mobility patterns, and learning from behavioral feedback when interventions influence future observations.',
+  timing: {
+    start: '13:40',
+    end: '14:00',
+    duration: '20 minutes, including Q&A',
+    placement: 'After the opening remarks, before Session 01: Mobility Data Mining & User Modeling.',
+  },
 };
 
 const organizerProfiles = {
@@ -80,7 +101,7 @@ export const organizers = [
 
 export const schedule = [
   { start: '13:30', end: '13:40', type: 'Welcome', title: 'What is Agentic Mobility Intelligence?', detail: 'Opening remarks and introduction to the workshop’s central research question.' },
-  { start: '13:40', end: '14:00', type: 'Invited talk', title: 'Invited Talk I', detail: 'Speaker and title to be announced. Includes questions.' },
+  { start: invitedSpeaker.timing.start, end: invitedSpeaker.timing.end, type: 'Invited talk', title: `Invited Talk I · ${invitedSpeaker.honorific} ${invitedSpeaker.name}`, detail: 'HKUST(GZ). Title to be announced. Tentative slot; includes Q&A.' },
   { start: '14:00', end: '14:30', type: 'Session 01', title: 'Mobility Data Mining & User Modeling', detail: 'Three contributed talks, 10 minutes each including questions.' },
   { start: '14:30', end: '15:00', type: 'Session 02', title: 'Recommendation & Agentic Systems for Mobility', detail: 'Three contributed talks, 10 minutes each including questions.' },
   { start: '15:00', end: '15:30', type: 'Break & posters', title: 'Coffee, conversations & posters', detail: 'Meet the authors and discuss systems, datasets and early-stage ideas.', break: true },
