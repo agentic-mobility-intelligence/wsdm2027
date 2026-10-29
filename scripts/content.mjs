@@ -4,7 +4,7 @@ export const event = {
   shortName: 'AMI’27',
   name: 'Agentic Mobility Intelligence',
   subtitle: 'From Mobility Data Mining to Closed-Loop Agentic Systems',
-  status: 'proposal',
+  status: 'confirmed',
   date: '19 February 2027',
   time: '13:30–17:00',
   timezone: 'Hong Kong time (UTC+8)',
@@ -54,7 +54,7 @@ export const workshop = {
     { title: 'Support shared research resources', text: 'Explore benchmarks, datasets, simulation environments, and industry collaborations, and share a public synthesis of the workshop.' },
   ],
   audience: 'We welcome researchers and practitioners in data mining, recommendation, user modeling, agentic and multi-agent systems, and mobility applications.',
-  participation: 'The proposed half-day, in-person workshop combines invited talks, contributed talks, posters, and a panel.',
+  participation: 'The half-day, in-person workshop combines invited talks, contributed talks, posters, and a panel.',
   speakerAnnouncement: 'Prof. Lei Chen (HKUST(GZ)) will give an invited talk. Additional speakers and panelists will be announced.',
 };
 
