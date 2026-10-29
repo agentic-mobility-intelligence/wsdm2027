@@ -12,7 +12,7 @@ export function renderHome({ event, themes, workshop, pending, esc, renderTopic,
       </div>
       <aside class="workshop-focus" aria-labelledby="workshop-focus-title"><div class="eyebrow light">The workshop’s focus</div><h2 id="workshop-focus-title">What will we explore?</h2><ol>${workshop.focusQuestions.map((question,index)=>`<li><span aria-hidden="true">0${index+1}</span><p>${esc(question)}</p></li>`).join('')}</ol><a class="text-link text-link-light" href="#topics">Explore the topics <span aria-hidden="true">↓</span></a></aside>
     </div>
-    <div class="event-facts"><div><span>${pending?'Proposed date':'Workshop date'}</span><strong>${esc(event.date)}</strong></div><div><span>Half-day workshop</span><strong>${esc(event.time)} HKT</strong></div><div><span>Attendance mode</span><strong>In person <span class="fact-muted">· Venue TBA</span></strong></div><div><span>Research focus</span><strong>Mining · Recommendation · Interaction</strong></div></div>
+    <div class="event-facts"><div><span>Tentative workshop date</span><strong>${esc(event.date)}</strong></div><div><span>Half-day workshop</span><strong>${esc(event.time)} HKT</strong></div><div><span>Attendance mode</span><strong>In person <span class="fact-muted">· Venue TBA</span></strong></div><div><span>Research focus</span><strong>Mining · Recommendation · Interaction</strong></div></div>
   </div></section>
 
   <section class="section motivation-section" id="motivation"><div class="container"><div class="about-grid">
