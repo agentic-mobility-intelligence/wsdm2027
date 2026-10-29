@@ -1,59 +1,22 @@
 # AMI’27 网站源码使用与维护指南
 
-> 文档版本：v18 · 更新日期：2026 年 10 月 18 日  
+> 文档版本：v20 · 更新日期：2026 年 10 月 29 日  
 > 对应项目：AMI’27 — Agentic Mobility Intelligence  
 > 网站内容为英文；本文件为中文维护说明。
 
-本项目是 AMI’27 Workshop 的五页静态网站，基于 Learning with Knowledge Graphs WSDM2023 模板改造，内容来自 Workshop Proposal 和组织者确认的信息。
+本项目是 AMI’27 Workshop 的五页静态网站，基于提供的 Learning with Knowledge Graphs WSDM2023 模板改造。内容主要来自 Workshop Proposal 和组织者后续确认的信息。
 
 网站由 HTML、CSS、原生 JavaScript 和本地图片组成。Node.js 仅用于生成页面和本地预览；正式部署后的网页不需要运行 Node.js 服务，也没有数据库、登录系统或站内投稿后台。投稿按钮在配置后跳转到外部投稿系统。
 
 **日常维护流程：修改源文件 → 生成 HTML → 本地查看 → 上传更新后的文件。**
 
-## 目录
-
-- [1. 快速开始](#section-1)
-  - [1.1 只想查看网页](#section-1-1)
-  - [1.2 用本地服务器预览](#section-1-2)
-  - [1.3 修改内容后生成页面](#section-1-3)
-- [2. 项目结构与页面分工](#section-2)
-- [3. 常见修改去哪里找](#section-3)
-- [4. 维护日期、投稿入口和活动状态](#section-4)
-  - [4.1 当前采用的日期](#section-4-1)
-  - [4.2 配置正式投稿链接](#section-4-2)
-  - [4.3 Proposal 状态与正式确认](#section-4-3)
-- [5. 维护首页、主题、人员和议程](#section-5)
-  - [5.1 首页文案与图示](#section-5-1)
-  - [5.2 Topics 的长短版本](#section-5-2)
-  - [5.3 组织者资料与照片](#section-5-3)
-  - [5.4 嘉宾信息](#section-5-4)
-  - [5.5 Program 与日历必须一起维护](#section-5-5)
-- [6. 字体、布局与响应式样式](#section-6)
-- [7. 图片与 Logo 的维护](#section-7)
-  - [7.1 正在使用的素材](#section-7-1)
-  - [7.2 可选：重新生成照片与图示的 WebP](#section-7-2)
-  - [7.3 浏览器标签图标（favicon）](#section-7-3)
-- [8. 交互与修改后检查](#section-8)
-- [9. 部署到静态托管服务](#section-9)
-  - [9.1 发布文件与维护源码](#section-9-1)
-  - [9.2 GitHub Pages 示例](#section-9-2)
-- [10. 常见问题](#section-10)
-- [11. 交接时仍需确认的信息](#section-11)
-- [12. 来源与相关说明](#section-12)
-
-<a id="section-1"></a>
-
 ## 1. 快速开始
-
-<a id="section-1-1"></a>
 
 ### 1.1 只想查看网页
 
 解压源码包，进入同时包含 `index.html`、`assets/` 和 `scripts/` 的目录，双击 `index.html` 即可查看。需要完整检查导航、图片放大和文件加载时，使用下面的本地预览方式。
 
-源码包外层文件夹的名称不影响运行。
-
-<a id="section-1-2"></a>
+源码包外层文件夹的名称不影响运行。当前工作目录仍叫 `AMI27_Questions_Hero_v5`，这是保留的目录名，不代表里面的内容停留在 v5。
 
 ### 1.2 用本地服务器预览
 
@@ -63,7 +26,7 @@
 node --version
 ```
 
-构建与预览已在 Node.js `v24.19.0` 下验证。项目只使用 Node.js 内置模块，没有 `package.json`，无需执行 `npm install`、`npm run dev` 或 `npm run build`。
+本次维护环境使用 Node.js `v24.16.0`。项目只使用 Node.js 内置模块，没有 `package.json`，无需执行 `npm install`、`npm run dev` 或 `npm run build`。
 
 启动预览：
 
@@ -80,7 +43,7 @@ $env:PORT = "4174"
 node scripts/serve.mjs
 ```
 
-此时访问 [4174 端口的首页](http://127.0.0.1:4174/)，以终端实际打印的地址为准。
+此时访问 [4174 端口的首页](http://127.0.0.1:4174/)。此前协作预览使用的是这个地址。以终端实际打印的地址为准，避免打开另一份旧网站。
 
 `PORT` 设置会保留在当前终端会话中。停止服务后，如需恢复默认端口：
 
@@ -89,8 +52,6 @@ Remove-Item Env:PORT -ErrorAction SilentlyContinue
 ```
 
 预览服务仅监听 `127.0.0.1`，用于本机查看；它不会自动把网站发布到互联网，也不能直接用手机访问电脑上的这个地址。服务没有自动刷新功能，保存修改后需要手动刷新浏览器。
-
-<a id="section-1-3"></a>
 
 ### 1.3 修改内容后生成页面
 
@@ -114,8 +75,6 @@ Built 5 static pages and the tentative calendar event.
 | 修改 README 等说明文档 | 保存即可，不影响网页 |
 
 **不要把生成后的 HTML 当作长期维护入口。** 直接改 `index.html` 等文件虽然会立即显示，但下一次生成会覆盖这些改动。
-
-<a id="section-2"></a>
 
 ## 2. 项目结构与页面分工
 
@@ -155,10 +114,8 @@ Built 5 static pages and the tentative calendar event.
 | Home | Workshop 简介、三个研究问题、About、Objectives、图示、主题、重要日期 | `content.mjs` + `home.mjs` |
 | Call for Papers | 完整 Topics、篇幅与格式、评审与发表说明、CMT 致谢、日期和投稿入口 | `content.mjs` + `build.mjs` 中的 `cfp()` |
 | Program | 暂定半天议程、Panel、日历下载 | `content.mjs` 中的 `schedule` + `build.mjs` 中的 `program()` |
-| Speakers | 嘉宾尚待公布的占位说明 | `build.mjs` 中的 `speakers()` |
+| Speakers | Prof. Lei Chen 的照片、简介、主页、预计报告方向和暂定时段 | `content.mjs` 中的 `invitedSpeaker` + `build.mjs` 中的 `speakers()` |
 | Organizers | 六位组织者、称谓、照片、单位、主页、邮箱及可展开简介 | `content.mjs` + `build.mjs` 中的 `committee()` |
-
-<a id="section-3"></a>
 
 ## 3. 常见修改去哪里找
 
@@ -175,7 +132,7 @@ Built 5 static pages and the tentative calendar event.
 | 老师称谓和主页链接 | `scripts/content.mjs` → `organizerProfiles` |
 | 议程时间、标题、说明、类型 | `scripts/content.mjs` → `schedule` |
 | 投稿篇幅、评审方式、发表政策、CMT 致谢 | `scripts/build.mjs` → `cfp()` |
-| 嘉宾卡片、演讲题目、摘要 | `scripts/build.mjs` → `speakers()`，目前需要在模板中添加 |
+| 嘉宾资料、演讲题目、预计方向和时段 | `scripts/content.mjs` → `invitedSpeaker`；布局在 `build.mjs` → `speakers()` |
 | 全站导航、Logo 引用、页脚 | `scripts/build.mjs` → `header()` / `footer()` |
 | 浏览器标题和分享描述 | `scripts/build.mjs` → `pages` 数组及 `shell()` |
 | 字体、行高、标题大小、区块间距 | `assets/css/refinements.css` |
@@ -183,11 +140,7 @@ Built 5 static pages and the tentative calendar event.
 
 部分内容直接写在模板里，修改一个共用字段不一定会更新所有相似表述。例如：首页主标题并不直接取自 `event.name`；场地文字目前也没有统一的 `venue` 配置字段。修改后应查看所有相关页面。
 
-<a id="section-4"></a>
-
 ## 4. 维护日期、投稿入口和活动状态
-
-<a id="section-4-1"></a>
 
 ### 4.1 当前采用的日期
 
@@ -216,9 +169,7 @@ deadlinesSourceUrl: 'https://www.wsdm-conference.org/2027/cfworkshops.html',
 submissionUrl: '',
 ```
 
-这些日期字段是展示用字符串，不会自动计算截止时间、倒计时或时区转换。日期栏说明论文投稿与通知期限使用 AoE；Program 页说明议程时间使用香港时区。
-
-<a id="section-4-2"></a>
+这些日期字段是展示用字符串，不会自动计算截止时间、倒计时或时区转换。日期栏已经移除“暂定”标签和 `Workshop times: HKT (UTC+8).`，只说明论文投稿与通知期限使用 AoE。Program 页仍保留议程时间的香港时区说明。
 
 ### 4.2 配置正式投稿链接
 
@@ -228,31 +179,25 @@ submissionUrl: '',
 - 有值时：投稿页显示 `Submit your paper` 按钮，链接到该地址。
 - 本项目不会自动创建 Microsoft CMT 会议或投稿系统。
 
-投稿页的 **Microsoft CMT acknowledgement** 位于 `cfp()` 的 `cmt-acknowledgement` 标题下，编辑时应保留完整原文。
+投稿页的 **Microsoft CMT acknowledgement** 已按要求保留完整原文，位置在 `cfp()` 的 `cmt-acknowledgement` 标题下。后续编辑格式说明时注意保留该段。
 
-<a id="section-4-3"></a>
+### 4.3 接收状态、论文格式与出版要求
 
-### 4.3 Proposal 状态与正式确认
+依据组织者于 2026 年 10 月 29 日提供的 WSDM’27 Workshop Co-Chairs 邮件，Workshop 已获接收，`event.status` 已设为 `'confirmed'`。首页、页脚及页面描述使用正式 Workshop 表述；具体日期、议程、报告时段和场地仍保留暂定或待公布说明，接收状态不代表这些安排全部确定。
 
-当前 `event.status` 仍为 `'proposal'`。只有值为 `'confirmed'` 时，生成逻辑中的部分状态文案才会改为正式 Workshop 表述。
+CFP 的 **Paper Format** 统一要求：所有论文使用英文和 ACM `sigconf` 模板，**最多 5 页，包含参考文献**。不再按长文、短文设置不同篇幅。研究、观点、系统、数据集等贡献方向仍可投稿。
 
-部分 Proposal / Tentative 文案直接写在模板中，不受 `event.status` 控制。
+所有录用论文默认收入 **WSDM Companion Proceedings**。至少一位作者须注册并现场报告；大会不提供远程报告，无法现场报告的论文将从 Companion Proceedings 中移除。作者如希望不收录论文，应联系 Workshop 组织者，由组织者通知 Proceedings Chair。
 
-在活动正式确认后，需要一起检查：
+邮件未改变本 Workshop 拟采用的双盲评审、每篇至少三份评审安排。正式投稿入口、作者终稿期限和注册链接仍待补充。
 
-1. `event.status`，以及首页首屏、Workshop 日期标签和页脚。
-2. `workshop.participation` 中的拟议活动描述。
-3. `cfp()` 中的篇幅、双盲评审、评审数量、发表与现场展示要求。
-4. `program()`、`speakers()` 中直接写入的 Tentative / Proposed 文案。
-5. `pages` 数组中的页面描述，以及日历的标题、说明和状态。
+### 4.4 组织者注册与现场职责
 
-目前稿件篇幅为 regular paper 最多 6 页、short / other contribution 最多 4 页，参考文献计入页数；这些属于当前草稿内容，后续应按组织者最终决定维护。
+上述邮件要求每个 Workshop 至少一位组织者完成 **完整五天（full 5-day）的大会注册**，并亲自到场监督 Workshop 现场运行。这是组织者的注册要求，不能据此将作者注册也写成必须购买五天注册。
 
-<a id="section-5"></a>
+邮件预计注册系统于 **2026 年 11 月上旬**开放；该时间是预计安排，尚未补写注册入口。若作者申请不收入论文集，组织者须将具体论文名单通知 Proceedings Chair。
 
 ## 5. 维护首页、主题、人员和议程
-
-<a id="section-5-1"></a>
 
 ### 5.1 首页文案与图示
 
@@ -266,13 +211,11 @@ submissionUrl: '',
 | `objectives` | 目标框中的三条目标；每项包含 `title` 和 `text` |
 | `definition` | Agentic Mobility 图示下的说明 |
 | `audience`、`participation` | Who Should Join 区域 |
-| `speakerAnnouncement` | 首页与 Program 的嘉宾待公布说明 |
+| `speakerAnnouncement` | 首页的嘉宾介绍提示 |
 
 `loopDescription` 是保留的数据字段，目前没有在首页渲染；修改它不会改变现在的图示说明。Traditional Mobility 图注、两张图的替代文字和流程短语位于 `home.mjs` 的 `diagram()` 调用处。
 
 当前 About 在桌面端采用左侧介绍与目标、右侧图示的布局；小于 992px 时上下排列。Objectives 使用浅绿色框、细边框和左侧强调线。右侧默认显示 Agentic Mobility，另一张图通过标签切换。
-
-<a id="section-5-2"></a>
 
 ### 5.2 Topics 的长短版本
 
@@ -285,8 +228,6 @@ submissionUrl: '',
 
 `topicKeywords` 用于匹配并加粗文字，依赖准确的短语和大小写。调整 Topics 文案后，检查对应关键词是否仍匹配。
 
-<a id="section-5-3"></a>
-
 ### 5.3 组织者资料与照片
 
 `organizers` 数组决定人员卡片的展示顺序，主要字段包括 `name`、`initials`、`image`、`institution`、`department`、`email`、`bio` 和 `contact`。
@@ -298,8 +239,6 @@ submissionUrl: '',
 - 简介通过 `Read biography` 展开。
 - `contact: true` 控制卡片上的 Primary contact 标识；全站联系按钮则使用 `event.contact`，两处应保持一致。
 - 页面有些人员字段直接进入模板，若文字包含 `&`、`<` 等特殊字符，修改后应检查最终显示。
-
-<a id="section-5-4"></a>
 
 ### 5.4 嘉宾信息
 
@@ -320,9 +259,6 @@ submissionUrl: '',
 
 取得正式题目和摘要后，应更新 `talkTitle`、`focus`，并在 `speakers()` 中把 Planned focus 改为 Abstract、删除题目和摘要待公布提示；在 `schedule` 中更新相应说明。最终时段确认后，再移除 Speakers 的 Tentative 标签并核对 Program。增加其他嘉宾时，需要扩展模板或改为嘉宾数组，不能只修改首页提示。
 
-
-<a id="section-5-5"></a>
-
 ### 5.5 Program 与日历必须一起维护
 
 `schedule` 中每项包括 `start`、`end`、`type`、`title`、`detail`，休息条目还可包含 `break: true`。时间按香港时间展示，列表不会自动排序或检查冲突，应手动保证首尾衔接。
@@ -339,8 +275,6 @@ DTEND:20270219T090000Z
 ```
 
 这对应 2027 年 2 月 19 日香港时间 13:30–17:00，末尾 `Z` 表示 UTC。调整活动日期、时间或场地时，应在生成源中同步维护 `DTSTART`、`DTEND`、`DTSTAMP`、`SUMMARY`、`DESCRIPTION`、`LOCATION` 和适用的 `STATUS`。保留同一活动的 UID 可帮助日历软件识别更新。不要只修改生成的 `.ics` 文件。
-
-<a id="section-6"></a>
 
 ## 6. 字体、布局与响应式样式
 
@@ -377,30 +311,24 @@ bootstrap.min.css → site.css → proposal.css → refinements.css → images.c
 
 当前桌面 AMI Logo 宽 200px、WSDM Logo 宽 148px，窄屏有相应缩小规则。两者都使用透明 PNG；不要再给图片添加白底或亮度滤镜。
 
-<a id="section-7"></a>
-
 ## 7. 图片与 Logo 的维护
-
-<a id="section-7-1"></a>
 
 ### 7.1 正在使用的素材
 
 | 用途 | 页面使用文件 | 原图 / 说明 |
 | --- | --- | --- |
-| AMI 页眉 Logo | `ami27-logo-transparent.png` | 原图：`ami27-logo-original.png` |
+| AMI 页眉 Logo | `ami27-logo-transparent.png` | 用户原图保留为 `ami27-logo-original.png` |
 | WSDM 页眉 Logo | `wsdm-2027-logo-transparent.png` | 原始灰底图保留为 `wsdm-2027-logo.png` |
 | Agentic 图示预览 | `agentic-mobility.webp` | 放大查看使用同名 `.png` |
 | Traditional 图示预览 | `traditional-mobility.webp` | 放大查看使用同名 `.png` |
 | 六位组织者照片 | 对应姓名的 `.webp` 文件 | JPG / JPEG 等原文件保留在同一目录 |
-| 浏览器标签图标 | `favicon-16.png`、`favicon-32.png`、`apple-touch-icon.png`、根目录 `favicon.ico` | 从 `ami27-logo-transparent.png` 左侧图形裁切生成，见 7.3 |
+| 浏览器标签图标 | `favicon.svg` | 独立于页眉 Logo，不会随页眉图片自动更新 |
 
 以上文件均位于 `assets/img/`。替换图片时保持路径一致；如果改了文件名，要同步修改模板或 `organizers` 数据。替换为不同宽高比的图片时，也应检查 HTML 中的 `width`、`height` 属性。
 
 透明 Logo 的处理方式和完整提示词见 [LOGO_EDIT.md](LOGO_EDIT.md)。需要真正含 Alpha 通道的 PNG；看起来像棋盘格的实色图片不是真正透明。
 
 照片使用 CSS 在框内裁切。张志文老师照片的右侧黑边目前通过 `scale(1.02)` 隐藏；其他照片也有各自的定位规则。换新照片后应重新检查裁切，而不是直接沿用旧图的缩放数值。
-
-<a id="section-7-2"></a>
 
 ### 7.2 可选：重新生成照片与图示的 WebP
 
@@ -416,27 +344,6 @@ python scripts/prepare_images.py
 脚本处理固定列表中的两张图示和六位组织者原图，保留原图并覆盖同名 `.webp`：图示最长边上限 1600px，照片最长边上限 900px，WebP quality 为 88。新增图片不会被自动发现，需维护脚本中的文件列表。
 
 该脚本会把输入转换为 RGB，**不用于透明 Logo**；现有列表也不包含 Logo。若某张原图缺失，脚本会报错，应先检查文件名和扩展名。
-
-<a id="section-7-3"></a>
-
-### 7.3 浏览器标签图标（favicon）
-
-标签图标使用 `ami27-logo-transparent.png` 左侧的图形标记，而不是整条横向 Logo：完整 Logo 宽高比约 3:1，缩到 16–32 px 后文字无法辨认。`scripts/make_favicons.py` 会把左侧图形裁成正方形并生成：
-
-- `assets/img/favicon-16.png`、`assets/img/favicon-32.png`：浏览器标签页
-- `assets/img/apple-touch-icon.png`：iOS 主屏幕图标（180×180，品牌深蓝底）
-- `favicon.ico`：放在根目录，包含 16/32/48 px，兼容旧浏览器
-
-重新生成：
-
-```powershell
-python -m pip install Pillow
-python scripts/make_favicons.py
-```
-
-对应 `<link>` 标签由 `scripts/build.mjs` 的页面模板统一输出，修改后需重新运行 `node scripts/build.mjs`。如果更换了 Logo 原图，需同步调整脚本中的 `EMBLEM_BOX` 裁切范围（当前基于 2172×724 原图）。浏览器会缓存 favicon，更新后可能需要强制刷新或用无痕窗口才能看到新图标。
-
-<a id="section-8"></a>
 
 ## 8. 交互与修改后检查
 
@@ -456,13 +363,9 @@ python scripts/make_favicons.py
 4. 调整过交互或图片时，检查标签切换、图片放大、手机菜单、个人主页和简介展开。
 5. 调整过时间或场地时，核对页面、议程和下载的日历一致。
 
-修改布局后，建议检查 320、360、390、768、1024、1440px 等屏幕宽度。
-
-<a id="section-9"></a>
+此前版面检查覆盖过 320、360、390、768、1024、1440px 等宽度；后续修改仍应检查受影响区域。
 
 ## 9. 部署到静态托管服务
-
-<a id="section-9-1"></a>
 
 ### 9.1 发布文件与维护源码
 
@@ -485,8 +388,6 @@ assets/
 
 页面使用相对路径，适合部署在域名根目录或仓库子路径。不要把资源路径随意改成以 `/assets/` 开头的形式，否则仓库子路径部署时可能找不到文件。
 
-<a id="section-9-2"></a>
-
 ### 9.2 GitHub Pages 示例
 
 本项目可以直接发布已生成的静态文件：
@@ -499,17 +400,6 @@ assets/
 GitHub Pages 的分支发布不会自动执行本项目的 `node scripts/build.mjs`；修改模板后，应先在本地生成并提交更新后的 HTML。具体入口及发布源配置见 [GitHub Pages 官方文档](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)。
 
 当前源码未提供自定义部署工作流或域名配置。本地 `127.0.0.1` 预览地址与线上站点是两个环境；本地修改不会自动同步到已经发布的网站。
-
-当前线上地址：
-
-- 仓库：[github.com/agentic-mobility-intelligence/wsdm2027](https://github.com/agentic-mobility-intelligence/wsdm2027)
-- 网站：[agentic-mobility-intelligence.github.io/wsdm2027](https://agentic-mobility-intelligence.github.io/wsdm2027/)
-
-组织 `agentic-mobility-intelligence` 代表系列品牌，仓库名代表届次。以后举办新一届时，在同一组织下新建对应仓库（如 `wsdm2028`）即可，各届网站互不影响。
-
-发布源已设为 `main` 分支根目录（`/`）。更新流程为：修改 `scripts/` 中的源文件 → 本地运行 `node scripts/build.mjs` → 提交生成的 HTML 与资源 → `git push`。推送后 GitHub Pages 会自动重新发布，无需手动上传文件。
-
-<a id="section-10"></a>
 
 ## 10. 常见问题
 
@@ -529,29 +419,26 @@ GitHub Pages 的分支发布不会自动执行本项目的 `node scripts/build.m
 | 新图片上传后不显示 | 检查文件名大小写、扩展名及相对路径；本地能打开不代表线上路径一定一致 |
 | 本地打开 `/scripts/` 或隐藏目录提示 403 | 预览服务器主动限制了这些路径，正常网页预览不需要访问它们 |
 
-<a id="section-11"></a>
-
 ## 11. 交接时仍需确认的信息
 
-当前投稿截止和通知日期见第 4.1 节。交接时仍需确认：
+当前提交截止和通知日期已按组织者要求确定。后续内容交接主要包括：
 
-- Workshop 接收状态，以及各页面对应的正式表述。
 - 正式投稿系统地址。
 - 具体场地、最终时段和议程。
-- 已确认的 invited speakers、panelists、演讲题目和摘要。
-- 论文篇幅、评审、发表及现场展示的最终要求。
+- Lei Chen 教授的正式报告题目、摘要和最终时段，以及其他 invited speakers 和 panelists。
+- 双盲评审及每篇至少三份评审的最终安排。
 - 如需公布，作者终稿期限与注册入口。
 
-正式发布前，组织者还应核对人员姓名、职称、单位、联系方式和简介。
-
-<a id="section-12"></a>
+这些信息没有从未确认的资料中补写。人员姓名、职称、单位、联系方式和简介也应由组织者在正式发布前核对。
 
 ## 12. 来源与相关说明
 
-- 主题、动机、目标、人员简介和初步议程：AMI’27 Proposal 及组织者确认的信息。
+- 主题、动机、目标、人员简介和初步议程：用户提供的 AMI’27 Proposal 及后续更新。
+- Workshop 接收状态、五页篇幅（含参考文献）、英文及 ACM `sigconf` 格式、出版与现场报告要求、组织者五天注册：用户于 2026 年 10 月 29 日提供的 Wen Hua 和 Xiangyu Zhao（WSDM’27 Workshop Co-Chairs）邮件。
 - 日期依据：[WSDM 2027 Workshop 官方页面](https://www.wsdm-conference.org/2027/cfworkshops.html)。
+- Lei Chen 教授职务、研究背景及照片：[官方个人主页](https://personal.hkust-gz.edu.cn/Chenlei/)；预计报告方向与暂定时段来自组织者提供的邀请函。
 - 原始网站模板：Learning with Knowledge Graphs WSDM2023。
 - Bootstrap v3.3.5 的 MIT 许可及模板说明：[THIRD_PARTY_NOTICES.txt](THIRD_PARTY_NOTICES.txt)。
-- AMI Logo：项目横向徽标；WSDM Logo 来源见第三方说明；透明处理记录见 [LOGO_EDIT.md](LOGO_EDIT.md)。
+- AMI Logo：用户提供的横向徽标；WSDM Logo 来源见第三方说明；透明处理记录见 [LOGO_EDIT.md](LOGO_EDIT.md)。
 
 本指南描述当前项目的实际结构与维护方式。以后修改模板或生成逻辑时，应同步维护对应说明。
