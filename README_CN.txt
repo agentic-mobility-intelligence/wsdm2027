@@ -1,6 +1,6 @@
 AMI’27 网站源码 — 中文快速入口
-文档版本：v19
-更新日期：2026 年 10 月 21 日
+文档版本：v20
+更新日期：2026 年 10 月 29 日
 
 详细使用与维护指南已统一整理到同目录的 README.md。
 请用支持 Markdown 的编辑器查看；普通文本编辑器也可以打开。
@@ -40,7 +40,7 @@ assets/css/images.css：About 图文布局、照片裁切和图片放大窗口�
 2. 组织者姓名与 organizerProfiles 中的键需要一致。
 3. Speakers 页嘉宾资料在 invitedSpeaker 中维护；布局在 build.mjs 的 speakers() 中。
 4. 改活动时间或场地后，必须同步修改 build.mjs 中的日历内容。
-5. status 改为 confirmed 不会自动修改全部暂定文案。
+5. Workshop 已接收，status 为 confirmed；日程仍暂定。论文统一最多 5 页（含参考文献），使用英文及 ACM sigconf 模板；出版和注册要求见 README.md 第 4 节。
 6. 透明 Logo 使用文件名带 -transparent 的 PNG；不要加白底或亮度滤镜。
 
 六、部署与完整说明
