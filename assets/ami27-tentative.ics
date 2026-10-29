@@ -5,12 +5,12 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:ami27-tentative-20270219@ami27.local
-DTSTAMP:20261017T000000Z
+DTSTAMP:20261029T000000Z
 DTSTART:20270219T053000Z
 DTEND:20270219T090000Z
 SUMMARY:AMI27 - Agentic Mobility Intelligence (Tentative)
-DESCRIPTION:Proposed half-day workshop for WSDM 2027. Dates and venue are s
- ubject to confirmation. 13:30-17:00 Hong Kong time (UTC+8).
+DESCRIPTION:Half-day workshop at WSDM 2027. Dates and venue are subject to 
+ confirmation. 13:30-17:00 Hong Kong time (UTC+8).
 LOCATION:Venue to be announced
 STATUS:TENTATIVE
 TRANSP:TRANSPARENT
