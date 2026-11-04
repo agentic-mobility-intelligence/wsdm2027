@@ -12,7 +12,7 @@ export const event = {
   submissionDate: '30 November 2026',
   notificationDate: '18 December 2026',
   deadlinesSourceUrl: 'https://www.wsdm-conference.org/2027/cfworkshops.html',
-  submissionUrl: '',
+  submissionUrl: 'https://cmt3.research.microsoft.com/WSDM2027/',
   contact: { name: 'Weigang Lu', email: 'weiganglu314@outlook.com' },
 };
 

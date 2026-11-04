@@ -166,17 +166,17 @@ timezone: 'Hong Kong time (UTC+8)',
 submissionDate: '30 November 2026',
 notificationDate: '18 December 2026',
 deadlinesSourceUrl: 'https://www.wsdm-conference.org/2027/cfworkshops.html',
-submissionUrl: '',
+submissionUrl: 'https://cmt3.research.microsoft.com/WSDM2027/',
 ```
 
 这些日期字段是展示用字符串，不会自动计算截止时间、倒计时或时区转换。日期栏已经移除“暂定”标签和 `Workshop times: HKT (UTC+8).`，只说明论文投稿与通知期限使用 AoE。Program 页仍保留议程时间的香港时区说明。
 
 ### 4.2 配置正式投稿链接
 
-取得实际投稿入口后，在 `event.submissionUrl` 中填写完整 HTTPS 地址，再生成页面。
+正式投稿入口已配置在 `scripts/content.mjs` 的 `event.submissionUrl`：
+`https://cmt3.research.microsoft.com/WSDM2027/`。
 
-- 为空字符串时：投稿页显示 `Submission link coming soon`。
-- 有值时：投稿页显示 `Submit your paper` 按钮，链接到该地址。
+- 投稿页显示醒目的橙色 `Submit your paper` 按钮，并链接到该地址。
 - 本项目不会自动创建 Microsoft CMT 会议或投稿系统。
 
 投稿页的 **Microsoft CMT acknowledgement** 已按要求保留完整原文，位置在 `cfp()` 的 `cmt-acknowledgement` 标题下。后续编辑格式说明时注意保留该段。
@@ -189,7 +189,7 @@ CFP 的 **Paper Format** 统一要求：所有论文使用英文和 ACM `sigconf
 
 所有录用论文默认收入 **WSDM Companion Proceedings**。至少一位作者须注册并现场报告；大会不提供远程报告，无法现场报告的论文将从 Companion Proceedings 中移除。作者如希望不收录论文，应联系 Workshop 组织者，由组织者通知 Proceedings Chair。
 
-邮件未改变本 Workshop 拟采用的双盲评审、每篇至少三份评审安排。正式投稿入口、作者终稿期限和注册链接仍待补充。
+本 Workshop 采用单盲评审：评审人可以看到作者身份，作者不会获知评审人身份；投稿无需匿名。每篇至少三份评审的安排仍需最终确认。
 
 ### 4.4 组织者注册与现场职责
 
@@ -423,10 +423,9 @@ GitHub Pages 的分支发布不会自动执行本项目的 `node scripts/build.m
 
 当前提交截止和通知日期已按组织者要求确定。后续内容交接主要包括：
 
-- 正式投稿系统地址。
 - 具体场地、最终时段和议程。
 - Lei Chen 教授的正式报告题目、摘要和最终时段，以及其他 invited speakers 和 panelists。
-- 双盲评审及每篇至少三份评审的最终安排。
+- 每篇至少三份评审的最终安排。
 - 如需公布，作者终稿期限与注册入口。
 
 这些信息没有从未确认的资料中补写。人员姓名、职称、单位、联系方式和简介也应由组织者在正式发布前核对。
