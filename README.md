@@ -114,7 +114,7 @@ Built 5 static pages and the tentative calendar event.
 | Home | Workshop 简介、三个研究问题、About、Objectives、图示、主题、重要日期 | `content.mjs` + `home.mjs` |
 | Call for Papers | 完整 Topics、篇幅与格式、评审与发表说明、CMT 致谢、日期和投稿入口 | `content.mjs` + `build.mjs` 中的 `cfp()` |
 | Program | 暂定半天议程、Panel、日历下载 | `content.mjs` 中的 `schedule` + `build.mjs` 中的 `program()` |
-| Speakers | Prof. Lei Chen 的照片、简介、主页、预计报告方向和暂定时段 | `content.mjs` 中的 `invitedSpeaker` + `build.mjs` 中的 `speakers()` |
+| Speakers | Lei Chen、Yu Zheng 两位邀请嘉宾的照片、简介、主页、预计报告方向和暂定时段 | `content.mjs` 中的 `invitedSpeakers` + `build.mjs` 中的 `speakers()` |
 | Organizers | 六位组织者、称谓、照片、单位、主页、邮箱及可展开简介 | `content.mjs` + `build.mjs` 中的 `committee()` |
 
 ## 3. 常见修改去哪里找
@@ -132,7 +132,7 @@ Built 5 static pages and the tentative calendar event.
 | 老师称谓和主页链接 | `scripts/content.mjs` → `organizerProfiles` |
 | 议程时间、标题、说明、类型 | `scripts/content.mjs` → `schedule` |
 | 投稿篇幅、评审方式、发表政策、CMT 致谢 | `scripts/build.mjs` → `cfp()` |
-| 嘉宾资料、演讲题目、预计方向和时段 | `scripts/content.mjs` → `invitedSpeaker`；布局在 `build.mjs` → `speakers()` |
+| 嘉宾资料、演讲题目、预计方向和时段 | `scripts/content.mjs` → `invitedSpeakers`；布局在 `build.mjs` → `speakers()` |
 | 全站导航、Logo 引用、页脚 | `scripts/build.mjs` → `header()` / `footer()` |
 | 浏览器标题和分享描述 | `scripts/build.mjs` → `pages` 数组及 `shell()` |
 | 字体、行高、标题大小、区块间距 | `assets/css/refinements.css` |
@@ -242,22 +242,26 @@ CFP 的 **Paper Format** 统一要求：所有论文使用英文和 ACM `sigconf
 
 ### 5.4 嘉宾信息
 
-已根据组织者提供的信息加入香港科技大学（广州）的 **Prof. Lei Chen**。职务、个人主页及照片来自教授的官方个人主页；报告方向来自邀请函，尚不是正式摘要。报告题目及摘要仍待公布。初步安排为开场之后、Session 01 之前；13:40–14:00 HKT、20 分钟含问答均保留为暂定安排。其他 invited speakers 和 panelists 待公布。
+已根据组织者提供的信息加入两位邀请嘉宾：香港科技大学（广州）的 **Prof. Lei Chen**，以及上海交通大学与京东集团的 **Prof. Yu Zheng**。两人的职务、个人主页和照片分别来自其官方个人主页（Lei Chen：<https://personal.hkust-gz.edu.cn/Chenlei/>；Yu Zheng：<http://urban-computing.com/yuzheng>，照片取自该主页公开头像）；报告方向来自组织者提供的邀请函，尚不是正式摘要，报告题目及摘要仍待公布。
 
-嘉宾数据集中在 `scripts/content.mjs` 的 `invitedSpeaker`：
+Lei Chen 安排在开场之后、Session 01 之前（13:40–14:00 HKT）；Yu Zheng 安排在茶歇之后、Session 03 之前（15:30–15:50 HKT）。两场均为 20 分钟含问答，且都仍是暂定安排。Panelists 待公布。
+
+嘉宾数据集中在 `scripts/content.mjs` 的 `invitedSpeakers` 数组，数组顺序即 Speakers 页面和 Program 中 Invited Talk I / II 的顺序：
 
 | 字段 | 用途 |
 | --- | --- |
-| `name`、`honorific`、`institution`、`role` | 姓名、称谓、学校和职务 |
-| `image` | `assets/img/` 下的照片文件名 |
+| `slug` | 卡片锚点与标题 id（如 `speaker-yu-zheng`），新增嘉宾需唯一 |
+| `name`、`honorific`、`initials` | 姓名、称谓，以及照片缺失时占位框中的缩写 |
+| `institution`、`shortInstitution`、`role` | 页面上的单位全称与职务、Program 里的单位简写 |
+| `image` | `assets/img/` 下的照片文件名；若文件不存在会自动显示缩写占位框 |
 | `homepage`、`biography` | 官方个人主页和简短介绍 |
 | `talkTitle` | 当前为 `Title to be announced`，确认后填写正式题目 |
 | `focus` | 当前标为 Planned focus 的预计内容，不代表嘉宾已确认的摘要 |
-| `timing` | 开始、结束时间、时长和与 Session 01 的先后关系 |
+| `timing` | 开始、结束时间、时长和与相邻环节的先后关系 |
 
-页面布局在 `scripts/build.mjs` 的 `speakers()`，样式在 `assets/css/refinements.css`。`timing.start` / `timing.end` 同时供 Program 的第一场邀请报告使用；姓名也从同一对象读取。首页提示由 `workshop.speakerAnnouncement` 管理；Panel 的待公布提示单独位于 `program()`。
+页面布局在 `scripts/build.mjs` 的 `speakers()`，样式在 `assets/css/refinements.css`。`timing.start` / `timing.end` 同时供 Program 的邀请报告行使用，行内容由 `content.mjs` 中的 `invitedTalk()` 生成；姓名和单位也从同一对象读取。首页提示由 `workshop.speakerAnnouncement` 管理；Panel 的待公布提示单独位于 `program()`。
 
-取得正式题目和摘要后，应更新 `talkTitle`、`focus`，并在 `speakers()` 中把 Planned focus 改为 Abstract、删除题目和摘要待公布提示；在 `schedule` 中更新相应说明。最终时段确认后，再移除 Speakers 的 Tentative 标签并核对 Program。增加其他嘉宾时，需要扩展模板或改为嘉宾数组，不能只修改首页提示。
+取得正式题目和摘要后，应更新 `talkTitle`、`focus`，并在 `speakers()` 中把 Planned focus 改为 Abstract、删除题目和摘要待公布提示；在 `schedule` 中更新相应说明。最终时段确认后，再移除 Speakers 的 Tentative 标签并核对 Program。增加第三位嘉宾时，在 `invitedSpeakers` 中追加一个对象，并在 `schedule` 的对应位置加一行 `invitedTalk(invitedSpeakers[2], 2)`，同时更新首页提示。
 
 ### 5.5 Program 与日历必须一起维护
 
@@ -424,7 +428,8 @@ GitHub Pages 的分支发布不会自动执行本项目的 `node scripts/build.m
 当前提交截止和通知日期已按组织者要求确定。后续内容交接主要包括：
 
 - 具体场地、最终时段和议程。
-- Lei Chen 教授的正式报告题目、摘要和最终时段，以及其他 invited speakers 和 panelists。
+- Lei Chen 与 Yu Zheng 两位教授的正式报告题目、摘要和最终时段，以及 panelists。
+- Yu Zheng 教授当前单位与职务的正式表述（网站现按本人主页写作“上海交通大学”与“京东集团”），以及是否换用本人提供的照片。
 - 每篇至少三份评审的最终安排。
 - 如需公布，作者终稿期限与注册入口。
 
