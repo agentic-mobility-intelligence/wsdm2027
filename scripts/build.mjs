@@ -1,7 +1,8 @@
 import { writeFile, mkdir } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { event, themes, topicKeywords, organizers, schedule, workshop, invitedSpeaker } from './content.mjs';
+import { event, themes, topicKeywords, organizers, schedule, workshop, invitedSpeakers } from './content.mjs';
 import { renderHome } from './home.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -46,24 +47,32 @@ function cfp() {
 }
 function program() {
   return `${pageHero('AMI’27 · Agentic Mobility Intelligence','Workshop Program','Tentative schedule for invited talks, contributed presentations, posters, and the panel.',`<div class="hero-status">${pill}<span>${event.date} · ${event.time} HKT</span></div>`)}
-  <section class="section program-section"><div class="container"><div class="program-intro"><div><h2>Schedule</h2></div><div class="program-note"><strong>All times are Hong Kong time (UTC+8).</strong><p>This schedule is tentative. Further speakers, talk titles, and the venue will be announced as confirmed.</p><a class="text-link" href="assets/ami27-tentative.ics" download>Add tentative event to calendar ${arrow}</a></div></div><div class="schedule-table"><div class="schedule-table-head"><span>Time · HKT</span><span>Session</span><span>Format</span></div>${schedule.map(s=>`<article class="schedule-row${s.break?' schedule-break':''}"><div class="session-time"><time>${s.start}</time><span>— ${s.end}</span></div><div class="session-description"><h3>${s.title}</h3><p>${s.detail}</p></div><div class="session-type">${s.type}</div></article>`).join('')}</div><p class="fine-print program-footnote">We plan to schedule nine contributed talks, with additional accepted contributions presented as posters. Final presentation slots will depend on accepted submissions.</p></div></section>
+  <section class="section program-section"><div class="container"><div class="program-intro"><div><h2>Schedule</h2></div><div class="program-note"><strong>All times are Hong Kong time (UTC+8).</strong><p>This schedule is tentative. Talk titles, the venue, and further program details will be announced as confirmed.</p><a class="text-link" href="assets/ami27-tentative.ics" download>Add tentative event to calendar ${arrow}</a></div></div><div class="schedule-table"><div class="schedule-table-head"><span>Time · HKT</span><span>Session</span><span>Format</span></div>${schedule.map(s=>`<article class="schedule-row${s.break?' schedule-break':''}"><div class="session-time"><time>${s.start}</time><span>— ${s.end}</span></div><div class="session-description"><h3>${s.title}</h3><p>${s.detail}</p></div><div class="session-type">${s.type}</div></article>`).join('')}</div><p class="fine-print program-footnote">We plan to schedule nine contributed talks, with additional accepted contributions presented as posters. Final presentation slots will depend on accepted submissions.</p></div></section>
   <section class="section panel-section"><div class="container"><div class="row"><div class="col-md-4"><span class="eyebrow">The panel · 16:20–16:50</span><h2>From prediction<br>to intervention.</h2></div><div class="col-md-7 col-md-offset-1"><p class="large-copy">What changes when mobility systems become agentic?</p><p>We plan to bring together perspectives from data mining, recommendation, agents and mobility deployment. Brief opening positions will lead into moderated debate and audience questions.</p><ul class="panel-questions"><li>When do agentic capabilities improve decisions?</li><li>Which assumptions break when people respond?</li><li>How should we evaluate system-wide consequences?</li></ul><p class="fine-print">Panelists will be announced.</p></div></div></div></section>${contactBand('Presentation and Participation','We plan to offer poster presentation opportunities to all accepted contributions.')}`;
 }
-function speakers() {
-  const s = invitedSpeaker;
-  return `${pageHero('AMI’27 · Agentic Mobility Intelligence','Speakers & Panelists','Information about the invited talks and panel at AMI’27.')}
-  <section class="section speakers-section"><div class="container">
-    <article class="invited-speaker" aria-labelledby="lei-chen-name">
+function speakerPortrait(s) {
+  const file = s.image ? path.join(root, 'assets/img', s.image) : null;
+  if (file && existsSync(file)) return `<img class="speaker-portrait" src="assets/img/${esc(s.image)}" width="400" height="400" alt="${esc(s.honorific)} ${esc(s.name)}" decoding="async">`;
+  return `<div class="speaker-portrait speaker-portrait-placeholder" role="img" aria-label="Portrait of ${esc(s.name)} to be added"><span aria-hidden="true">${esc(s.initials || '')}</span><small>Portrait forthcoming</small></div>`;
+}
+function speakerCard(s, index) {
+  const numeral = ['I', 'II', 'III', 'IV'][index] || String(index + 1);
+  return `<article class="invited-speaker" id="speaker-${esc(s.slug)}" aria-labelledby="${esc(s.slug)}-name">
       <div class="speaker-profile">
-        <img class="speaker-portrait" src="assets/img/${esc(s.image)}" width="400" height="407" alt="${esc(s.honorific)} ${esc(s.name)}" decoding="async">
-        <div class="speaker-profile-copy"><span class="eyebrow">Invited speaker</span><h2 id="lei-chen-name">${esc(s.honorific)} ${esc(s.name)}</h2><p class="speaker-role">${esc(s.role)}</p><p class="speaker-affiliation">${esc(s.institution)}</p><p class="speaker-biography">${esc(s.biography)}</p><a class="text-link" href="${esc(s.homepage)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(s.name)}’s homepage (opens in a new tab)">Personal homepage ${arrow}</a></div>
+        ${speakerPortrait(s)}
+        <div class="speaker-profile-copy"><span class="eyebrow">Invited speaker</span><h2 id="${esc(s.slug)}-name">${esc(s.honorific)} ${esc(s.name)}</h2><p class="speaker-role">${esc(s.role)}</p><p class="speaker-affiliation">${esc(s.institution)}</p><p class="speaker-biography">${esc(s.biography)}</p><a class="text-link" href="${esc(s.homepage)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(s.name)}’s homepage (opens in a new tab)">Personal homepage ${arrow}</a></div>
       </div>
       <div class="speaker-talk">
-        <div class="speaker-talk-copy"><span class="eyebrow">Invited talk</span><h3>${esc(s.talkTitle)}</h3><p class="speaker-focus"><strong>Planned focus.</strong> ${esc(s.focus)}</p><p class="fine-print">The final title and abstract will be announced.</p></div>
+        <div class="speaker-talk-copy"><span class="eyebrow">Invited talk ${numeral}</span><h3>${esc(s.talkTitle)}</h3><p class="speaker-focus"><strong>Planned focus.</strong> ${esc(s.focus)}</p><p class="fine-print">The final title and abstract will be announced.</p></div>
         <aside class="speaker-slot" aria-label="Tentative talk schedule"><span class="status-pill"><span></span>Tentative</span><p class="speaker-slot-date">${esc(event.date)}</p><p class="speaker-slot-time">${esc(s.timing.start)}–${esc(s.timing.end)} HKT</p><p>${esc(s.timing.duration)}</p><p class="speaker-placement">${esc(s.timing.placement)}</p><a class="text-link" href="schedule.html">View the program ${arrow}</a></aside>
       </div>
-    </article>
-    <p class="speaker-updates">Additional invited speakers and panelists will be announced.</p>
+    </article>`;
+}
+function speakers() {
+  return `${pageHero('AMI’27 · Agentic Mobility Intelligence','Speakers & Panelists','Information about the invited talks and panel at AMI’27.')}
+  <section class="section speakers-section"><div class="container">
+    ${invitedSpeakers.map(speakerCard).join('\n    ')}
+    <p class="speaker-updates">Additional panelists will be announced.</p>
   </div></section>${contactBand('Contact the organizing team','For enquiries about the workshop and its program, please get in touch.')}`;
 }
 function committee() {
@@ -78,7 +87,7 @@ const pages = [
   ['index.html','Agentic Mobility Intelligence','AMI’27 is a WSDM 2027 workshop connecting mobility data mining, recommendation, participant interaction and closed-loop agentic systems.',home()],
   ['cfp.html','Call for Papers','Explore the AMI’27 research topics, submission guidelines, review process and important dates.',cfp()],
   ['schedule.html','Program','The proposed AMI’27 half-day program: invited talks, research presentations, posters and a panel.',program()],
-  ['speakers.html','Speakers','Meet invited speaker Prof. Lei Chen of HKUST(GZ) at AMI’27. Talk title and abstract to be announced.',speakers()],
+  ['speakers.html','Speakers','Meet the AMI’27 invited speakers, Prof. Lei Chen of HKUST(GZ) and Prof. Yu Zheng of SJTU and JD.COM. Talk titles and abstracts to be announced.',speakers()],
   ['organizers.html','Organizers','Meet the six organizers connecting data mining, intelligent agents and transportation research at AMI’27.',committee()],
 ];
 for (const [filename,title,description,content] of pages) await writeFile(path.join(root,filename),shell(filename,title,description,content),'utf8');
