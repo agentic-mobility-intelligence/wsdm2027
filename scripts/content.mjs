@@ -55,29 +55,64 @@ export const workshop = {
   ],
   audience: 'We welcome researchers and practitioners in data mining, recommendation, user modeling, agentic and multi-agent systems, and mobility applications.',
   participation: 'The half-day, in-person workshop combines invited talks, contributed talks, posters, and a panel.',
-  speakerAnnouncement: 'Prof. Lei Chen (HKUST(GZ)) will give an invited talk. Additional speakers and panelists will be announced.',
+  speakerAnnouncement: 'Prof. Lei Chen (HKUST(GZ)) and Prof. Yu Zheng (SJTU · JD.COM) will give invited talks. Panelists will be announced.',
 };
 
-// Speaker confirmed by the organizers. The title, abstract, and exact slot are pending.
-// Profile and portrait: https://personal.hkust-gz.edu.cn/Chenlei/
-// Planned focus and timing follow the supplied invitation, not a final talk abstract.
-export const invitedSpeaker = {
-  name: 'Lei Chen',
-  honorific: 'Prof.',
-  institution: 'The Hong Kong University of Science and Technology (Guangzhou)',
-  role: 'Chair Professor · Dean of Information Hub',
-  image: 'lei-chen.webp',
-  homepage: 'https://personal.hkust-gz.edu.cn/Chenlei/',
-  biography: 'Prof. Chen works on data management and database systems, including data-driven AI and spatiotemporal data. His expertise connects mobility data analysis with the workshop’s questions about effective real-world decisions.',
-  talkTitle: 'Title to be announced',
-  focus: 'The talk is expected to explore how data mining and spatiotemporal intelligence can support reliable, adaptive decisions in dynamic mobility environments. Topics may include decision-making with incomplete information, evolving mobility patterns, and learning from behavioral feedback when interventions influence future observations.',
-  timing: {
-    start: '13:40',
-    end: '14:00',
-    duration: '20 minutes, including Q&A',
-    placement: 'After the opening remarks, before Session 01: Mobility Data Mining & User Modeling.',
+// Speakers confirmed by the organizers. Talk titles, abstracts, and exact slots are pending.
+// Profiles and portraits: https://personal.hkust-gz.edu.cn/Chenlei/ (Lei Chen);
+// http://urban-computing.com/yuzheng (Yu Zheng, portrait taken from his public homepage).
+// Planned focus and timing follow the supplied invitations, not final talk abstracts.
+// Program, Speakers page and homepage notice all read from this array, so add a speaker here only.
+export const invitedSpeakers = [
+  {
+    slug: 'lei-chen',
+    name: 'Lei Chen',
+    honorific: 'Prof.',
+    initials: 'LC',
+    institution: 'The Hong Kong University of Science and Technology (Guangzhou)',
+    shortInstitution: 'HKUST(GZ)',
+    role: 'Chair Professor · Dean of Information Hub',
+    image: 'lei-chen.webp',
+    homepage: 'https://personal.hkust-gz.edu.cn/Chenlei/',
+    biography: 'Prof. Chen works on data management and database systems, including data-driven AI and spatiotemporal data. His expertise connects mobility data analysis with the workshop’s questions about effective real-world decisions.',
+    talkTitle: 'Title to be announced',
+    focus: 'The talk is expected to explore how data mining and spatiotemporal intelligence can support reliable, adaptive decisions in dynamic mobility environments. Topics may include decision-making with incomplete information, evolving mobility patterns, and learning from behavioral feedback when interventions influence future observations.',
+    timing: {
+      start: '13:40',
+      end: '14:00',
+      duration: '20 minutes, including Q&A',
+      placement: 'After the opening remarks, before Session 01: Mobility Data Mining & User Modeling.',
+    },
   },
-};
+  {
+    slug: 'yu-zheng',
+    name: 'Yu Zheng',
+    honorific: 'Prof.',
+    initials: 'YZ',
+    institution: 'Shanghai Jiao Tong University · JD.COM',
+    shortInstitution: 'SJTU · JD.COM',
+    role: 'Chair Professor · Vice President of JD.COM',
+    image: 'yu-zheng.webp',
+    homepage: 'http://urban-computing.com/yuzheng',
+    biography: 'Prof. Zheng is an ACM Fellow and IEEE Fellow recognized for contributions to spatio-temporal data mining and urban computing. He is the author of Urban Computing (MIT Press) and Computing with Spatial Trajectories, has published over 200 refereed papers, and served as Editor-in-Chief of ACM Transactions on Intelligent Systems and Technology from 2015 to 2021. Before joining JD.COM he was a senior research manager at Microsoft Research, and he has led the deployment of urban computing systems in several Chinese cities.',
+    talkTitle: 'Title to be announced',
+    focus: 'The talk is expected to consider how urban computing can move toward agentic and interactive intelligence: data-driven predictions and recommendations shape human decisions, generate behavioral responses, and continuously reshape the urban environment on which the next decisions are based. It may also outline the research challenges and opportunities this creates for the next generation of intelligent urban systems.',
+    timing: {
+      start: '15:30',
+      end: '15:50',
+      duration: '20 minutes, including Q&A',
+      placement: 'After the poster break, immediately before Session 03: Interaction, Feedback & Closed-Loop Mobility Systems.',
+    },
+  },
+];
+
+const invitedTalk = (speaker, index) => ({
+  start: speaker.timing.start,
+  end: speaker.timing.end,
+  type: 'Invited talk',
+  title: `Invited Talk ${['I', 'II', 'III', 'IV'][index]} · ${speaker.honorific} ${speaker.name}`,
+  detail: `${speaker.shortInstitution}. Title to be announced. Tentative slot; includes Q&A.`,
+});
 
 const organizerProfiles = {
   'Weigang Lu': { honorific: 'Prof.', homepage: 'https://weiganglu.github.io/HomePage/', homepageLabel: 'Homepage' },
@@ -101,11 +136,11 @@ export const organizers = [
 
 export const schedule = [
   { start: '13:30', end: '13:40', type: 'Welcome', title: 'What is Agentic Mobility Intelligence?', detail: 'Opening remarks and introduction to the workshop’s central research question.' },
-  { start: invitedSpeaker.timing.start, end: invitedSpeaker.timing.end, type: 'Invited talk', title: `Invited Talk I · ${invitedSpeaker.honorific} ${invitedSpeaker.name}`, detail: 'HKUST(GZ). Title to be announced. Tentative slot; includes Q&A.' },
+  invitedTalk(invitedSpeakers[0], 0),
   { start: '14:00', end: '14:30', type: 'Session 01', title: 'Mobility Data Mining & User Modeling', detail: 'Three contributed talks, 10 minutes each including questions.' },
   { start: '14:30', end: '15:00', type: 'Session 02', title: 'Recommendation & Agentic Systems for Mobility', detail: 'Three contributed talks, 10 minutes each including questions.' },
   { start: '15:00', end: '15:30', type: 'Break & posters', title: 'Coffee, conversations & posters', detail: 'Meet the authors and discuss systems, datasets and early-stage ideas.', break: true },
-  { start: '15:30', end: '15:50', type: 'Invited talk', title: 'Invited Talk II', detail: 'Speaker and title to be announced. Includes questions.' },
+  invitedTalk(invitedSpeakers[1], 1),
   { start: '15:50', end: '16:20', type: 'Session 03', title: 'Interaction, Feedback & Closed-Loop Mobility Systems', detail: 'Three contributed talks, 10 minutes each including questions.' },
   { start: '16:20', end: '16:50', type: 'Panel', title: 'From Prediction to Intervention', detail: 'What changes when mobility systems become agentic? A moderated discussion with audience questions.' },
   { start: '16:50', end: '17:00', type: 'Closing', title: 'A shared research agenda', detail: 'Closing discussion and community roadmap.' },
